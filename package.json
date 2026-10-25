@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "pip3 install --break-system-packages -r requirements-build.txt && python3 src/build.py"
+    "build": "pip3 install --break-system-packages -r requirements-build.txt && python3 src/build.py",
     "test": "node --test tests/*.test.mjs && node tests/regression_v4.cjs && node tests/regression_v6.cjs && node tests/regression_v7.cjs && node tests/regression_v8.cjs",
     "test:regression": "node tests/regression_v4.cjs && node tests/regression_v6.cjs && node tests/regression_v7.cjs && node tests/regression_v8.cjs",
     "dev": "python3 -m http.server 8000"
