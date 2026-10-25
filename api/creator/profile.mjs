@@ -68,7 +68,7 @@ export default async function handler(req, res) {
         bio,
         verified_mediums: verifiedMediums,
         avatar_url: avatarUrl || null,
-        status: 'draft'
+        status: 'published'
       }
     });
   } catch (error) {

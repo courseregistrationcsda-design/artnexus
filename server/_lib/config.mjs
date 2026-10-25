@@ -21,16 +21,18 @@ const validSupabaseUrl = value => {
 };
 
 export function getRuntimeConfig(env = process.env) {
-  // Production and development runtimes stay local-only even when provider secrets exist.
-  // The explicit override is confined to mocked unit tests so legacy route logic remains testable.
+  // Local-preview is the default; when Supabase auth env is fully present,
+  // localCommunityMode turns off and the app syncs through the backend.
+  // Payments remain disabled unless PayMongo test secrets are configured.
   const providerTestOverride = String(env.NODE_ENV || '').toLowerCase() === 'test'
     && String(env.ART_NEXUS_TEST_ALLOW_PROVIDERS || '').toLowerCase() === 'true';
-  const localCommunityMode = !providerTestOverride;
   const supabaseUrl = validSupabaseUrl(env.SUPABASE_URL);
   const anonKey = String(env.SUPABASE_ANON_KEY || '').trim();
   const serviceRoleKey = String(env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
   const appUrl = URL_ORIGIN(env.PUBLIC_APP_URL);
   const rateLimitSecret = String(env.RATE_LIMIT_HMAC_SECRET || '').trim();
+  const authEnvPresent = !!(supabaseUrl && anonKey && serviceRoleKey && appUrl && rateLimitSecret);
+  const localCommunityMode = !providerTestOverride && !authEnvPresent;
   const authConfigured = !localCommunityMode && !!(supabaseUrl && anonKey && serviceRoleKey && appUrl && rateLimitSecret);
   const googleDriveClientId = String(env.GOOGLE_DRIVE_CLIENT_ID || '').trim();
   const googleDriveClientSecret = String(env.GOOGLE_DRIVE_CLIENT_SECRET || '').trim();
