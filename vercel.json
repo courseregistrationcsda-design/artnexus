@@ -22,6 +22,6 @@
     "api/cron/expire-orders.mjs": { "maxDuration": 60 }
   },
   "crons": [
-    { "path": "/api/cron/expire-orders", "schedule": "*/15 * * * *" }
+    { "path": "/api/cron/expire-orders", "schedule": "0 0 * * *" }
   ]
 }
