@@ -1,4 +1,5 @@
 {
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
@@ -22,6 +23,9 @@
     "api/cron/expire-orders.mjs": { "maxDuration": 60 }
   },
   "crons": [
-    { "path": "/api/cron/expire-orders", "schedule": "schedule": "0 0 * * *" }
+    { 
+      "path": "/api/cron/expire-orders", 
+      "schedule": "0 0 * * *" 
+    }
   ]
 }
